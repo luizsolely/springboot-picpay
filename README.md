@@ -1,4 +1,4 @@
-**Project based on [Fernanda Kipper's tutorial](https://youtu.be/T6ChO8LQxRE), with additional modifications by me.**
+**Project based on [Fernanda Kipper's tutorial](https://www.youtube.com/watch?v=QXunBiLq2SM&ab), with additional modifications by me using the latest version of the [challenge](https://github.com/PicPay/picpay-desafio-backend).**
 
 # Authentication API
 
@@ -66,7 +66,7 @@ POST /users - Register a new user into the App
 
 **POST TRANSACTIONS**
 ```markdown
-POST /transactions - Register a new Transaction between users (COMMON to COMMON or COMMON to MERCHANT)
+POST /transfer - Register a new Transaction between users (COMMON to COMMON or COMMON to MERCHANT)
 ```
 
 ```json
