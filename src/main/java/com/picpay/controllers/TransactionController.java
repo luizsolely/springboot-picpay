@@ -11,6 +11,15 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 import com.picpay.DTOs.TransactionDTO;
 import com.picpay.domain.Transaction.Transaction;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.picpay.DTOs.TransactionDTO;
+import com.picpay.DTOs.UserDTO;
+import com.picpay.domain.Transaction.Transaction;
+import com.picpay.domain.User.User;
 import com.picpay.services.TransactionService;
 
 @RestController
@@ -24,11 +33,15 @@ public class TransactionController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "201", description = "Transaction successfully completed."),
         @ApiResponse(responseCode = "400", description = "Invalid transaction details."),
-        @ApiResponse(responseCode = "403", description = "Transaction not authorized.")
-    })
-    @PostMapping
-    public ResponseEntity<Transaction> createTransaction(@RequestBody TransactionDTO transaction) throws Exception {
-        Transaction newTransaction = transactionService.createTransaction(transaction);
-        return new ResponseEntity<>(newTransaction, HttpStatus.CREATED);
-    }
+        @ApiResponse(responseCode = "500", description = "Transaction not authorized.")
+    })	
+	@PostMapping
+	public ResponseEntity<Transaction> createTransaction(@RequestBody TransactionDTO transaction) throws Exception {
+		
+		Transaction newTransaction = this.transactionService.createTransaction(transaction);
+		return new ResponseEntity<>(newTransaction, HttpStatus.CREATED);
+		
+	}
+	
+	
 }

@@ -49,8 +49,11 @@ public class TransactionService {
 		newTransaction.setSender(sender);
 		newTransaction.setReceiver(receiver);
 		newTransaction.setTimestamp(LocalDateTime.now());
-		
+
 		updateBalances(sender, receiver, transaction.value());
+
+		sender.setBalance(sender.getBalance().subtract(transaction.value()));
+		receiver.setBalance(receiver.getBalance().add(transaction.value()));
 		
 		this.repository.save(newTransaction);
 		userService.saveUser(sender);
@@ -67,22 +70,18 @@ public class TransactionService {
         userService.saveUser(receiver);
     }
 	
-	public boolean authorizeTransaction(User sender, BigDecimal value) {
-	    try {
-	        ResponseEntity<Map> authorizationResponse = restTemplate.getForEntity("https://util.devi.tools/api/v2/authorize", Map.class);
 
-	        if (authorizationResponse.getStatusCode() == HttpStatus.OK) {
-	            Map<String, Object> body = authorizationResponse.getBody();
-	            if (body != null && body.containsKey("data")) {
-	                Map<String, Object> data = (Map<String, Object>) body.get("data");
-	                return Boolean.TRUE.equals(data.get("authorization"));
-	            }
+	public boolean authorizeTransaction(User sender, BigDecimal value) {
+	    ResponseEntity<Map> authorizationResponse = restTemplate.getForEntity("https://util.devi.tools/api/v2/authorize", Map.class);
+
+	    if (authorizationResponse.getStatusCode() == HttpStatus.OK) {
+	        Map<String, Object> body = authorizationResponse.getBody();
+	        if (body != null && body.containsKey("data")) {
+	            Map<String, Object> data = (Map<String, Object>) body.get("data");
+	            return Boolean.TRUE.equals(data.get("authorization"));
 	        }
-	    } catch (Exception e) {
-	        System.err.println("Erro ao consultar API de autorização: " + e.getMessage());
 	    }
 	    return false;
 	}
-
 	
 }
