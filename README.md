@@ -1,5 +1,19 @@
 **Project based on [Fernanda Kipper's tutorial](https://www.youtube.com/watch?v=QXunBiLq2SM&ab), with additional modifications by me using the latest version of the [challenge](https://github.com/PicPay/picpay-desafio-backend).**
 
+# How to Access Swagger and Test the API
+**Accessing Swagger UI**
+
+You can access the documentation at 🔗[Swagger](https://springboot-picpay-production.up.railway.app/swagger-ui/index.html)
+
+**Testing API Endpoints**
+
+- Open Swagger UI in your browser.
+- Select an endpoint (e.g., /users, /transfer).
+- Click "Try it out" to enable editing.
+- Fill in the required parameters.
+- Click "Execute" to send the request.
+- Check the response at the bottom of the page.
+
 # Authentication API
 
 This project is an API built using **Java, Java Spring, H2 as the database.** 
@@ -46,6 +60,23 @@ GET /users - Retrieve a list of all users.
         "userType": "MERCHANT"
     }
 ]
+```
+
+**GET USER**
+```markdown
+GET /users/{id} - Retrieves a user by the provided ID.
+```
+```json
+    {
+        "id": 1,
+        "firstName": "Michael",
+        "lastName": "de Santa",
+        "document": "123456789",
+        "email": "Michael@example.com",
+        "password": "testPassword",
+        "balance": 10.00,
+        "userType": "COMMON"
+    },
 ```
 
 **POST USERS**
